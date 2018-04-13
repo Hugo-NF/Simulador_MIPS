@@ -135,7 +135,6 @@ void memory::sb(uint32_t address, int16_t offset, uint8_t data){    //Stores a b
 void memory::dump_mem(uint32_t address, uint32_t amount, mem_sizes word_size){
     int i;
     const char *addr_format, *data_format;
-    char addr_output[CONSOLE_LEN], data_output[CONSOLE_LEN];
 
     switch (this->addr_output){
         case _octal:
@@ -172,13 +171,11 @@ void memory::dump_mem(uint32_t address, uint32_t amount, mem_sizes word_size){
             break;
         }
 
-        sprintf(addr_output, addr_format, (crt_addr[0]*4 + crt_addr[1]));
-        cout << addr_output;
-        for(i = 0; i < word_size; i++){
-            sprintf(data_output, data_format, this->memory_array[crt_addr[0]].cell[crt_addr[1]+i]);
-            cout<< data_output;
-        }
-        cout<<endl;
+        printf(addr_format, (crt_addr[0]*4 + crt_addr[1]));
+        for(i = 0; i < word_size; i++)
+            printf(data_format, this->memory_array[crt_addr[0]].cell[crt_addr[1]+i]);
+
+        printf("\n");
 
         address += word_size;
         amount--;
