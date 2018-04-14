@@ -34,4 +34,12 @@ typedef enum fun {
     SLL=0x00, SRL=0x02, SRA=0x03, SYSCALL=0x0C, MFHI=0x10, MFLO=0x12
 }funct;
 
+typedef enum sys{
+    _prt_int = 1, _prt_float = 2, _prt_double = 3, _prt_string = 4,
+    _rd_int = 5, _rd_float = 6, _rd_double = 7, _rd_string = 8,
+    _sbrk = 9, _fexit = 10, _prt_char = 11, _rd_char = 12, _open_file = 13,
+    _file_read = 14, _file_write = 15, _cls_file = 16, _exit_v = 17,
+    _ssleep = 32, _prt_int_hex = 34, _prt_u_int = 36
+}syscalls;
+
 #endif //T2_SIMULADORMIPS_TYPES_HPP

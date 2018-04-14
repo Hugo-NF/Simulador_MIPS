@@ -41,14 +41,6 @@ registers::registers() {
 
 registers::~registers() = default;
 
-void registers::write_at(unsigned int reg_idx, int32_t data) {
-    b_regs[reg_idx] = data;
-}
-
-int32_t registers::read_from(unsigned int reg_idx) {
-    return b_regs[reg_idx];
-}
-
 void registers::dump_regs(output_format format) {
     const char *data_format;
     char output[CONSOLE_LEN];
@@ -81,7 +73,7 @@ void registers::dump_regs(output_format format) {
     printf("\n\n");
 
     for (i = 0; i < B_REGS_SIZE; i++) {
-        sprintf(output, data_format, b_regs[i]);
+        sprintf(output, data_format, reg[i]);
         printf("%s%s\n", regs_description[i].c_str(), output);
     }
 }
