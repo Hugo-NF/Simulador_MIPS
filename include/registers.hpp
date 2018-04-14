@@ -14,8 +14,8 @@ using namespace std;
 
 class registers{
 private:
-    vector<int32_t> b_regs;     //Registers
-    vector<string> regs_description; //Description of each registers
+    int32_t b_regs[B_REGS_SIZE];     //Registers
+    string regs_description[B_REGS_SIZE]; //Registers description
 
 public:
     //Special registers

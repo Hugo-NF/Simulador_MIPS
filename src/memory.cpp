@@ -4,12 +4,11 @@ memory::memory(int sel_endianness, int addresses_format, int data_format){
     this->endianness = sel_endianness;
     this->addr_output = addresses_format;
     this->data_output = data_format;
-    this->crt_addr = {0,0};
+    crt_addr[0] = 0;
+    crt_addr[1] = 0;
 }
 
-memory::~memory(){
-    crt_addr.~vector();
-}
+memory::~memory() = default;
 
 void memory::set_endianness(int sel_endianness){
     this->endianness = sel_endianness;

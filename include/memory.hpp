@@ -22,7 +22,7 @@ typedef struct memory_cell {
 
 class memory {
 private:
-    vector<int> crt_addr;
+    int crt_addr[2];
     mem_cell memory_array[MEMORY_AMOUNT];
     int endianness;
     int addr_output;

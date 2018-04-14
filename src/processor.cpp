@@ -1,6 +1,6 @@
 #include "../include/processor.hpp"
 
-processor::processor() {
+processor::processor(){
     this->mem = memory(_big, _hex, _hex);
     this->b_reg = registers();
 }
@@ -24,8 +24,8 @@ void processor::load_memory(const char *path, memory_section sec) {
         file_obj.read(mem_block, size);
         file_obj.close();
 
-        for(uint32_t i = start; i < end; i++){
-            this->mem.sb(i,0, (uint8_t)mem_block[i]);
+        for(uint32_t i = start, j = 0; i < end && j < size; i++){
+            this->mem.sb(i,0, (uint8_t)mem_block[j]);
         }
 
         delete[] mem_block;
@@ -174,6 +174,33 @@ void processor::execute() {
             break;
         default:
             throw logic_error(UNKNOWN_OPCODE);
+    }
+}
+
+void processor::step(unsigned int amount){
+    try{
+        for (int i=0; i< amount; i++){
+            this->fetch();
+            this->decode();
+            this->execute();
+        }
+    }
+    catch (const exception &exc){
+        printf(exc.what());
+    }
+}
+
+void processor::run(){
+    while(true){
+        try{
+            this->fetch();
+            this->decode();
+            this->execute();
+        }
+        catch (const exception &exc){
+            printf(exc.what());
+            break;
+        }
     }
 }
 

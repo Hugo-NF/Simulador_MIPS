@@ -5,8 +5,6 @@ registers::registers() {
     this->HI = 0x00000000;
     this->LO = 0x00000000;
     this->RI = 0x00000000;
-    this->b_regs = vector<int32_t>(B_REGS_SIZE, 0);
-    this->regs_description = vector<string>(B_REGS_SIZE, string());
     this->regs_description[0] = "$zero (Constant 0):\t\t\t\t\t\t";
     this->regs_description[1] = "$at (Reserved for assembler):\t\t\t\t\t";
     this->regs_description[2] = "$v0 (Expression evaluation and results of a function 1):\t";
@@ -41,10 +39,7 @@ registers::registers() {
     this->regs_description[31] = "$ra (Return address - used by function call):\t\t\t";
 }
 
-registers::~registers() {
-    this->b_regs.~vector();
-    this->regs_description.~vector();
-}
+registers::~registers() = default;
 
 void registers::write_at(unsigned int reg_idx, int32_t data) {
     b_regs[reg_idx] = data;

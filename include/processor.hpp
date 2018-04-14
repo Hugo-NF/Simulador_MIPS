@@ -26,8 +26,6 @@ class processor{
 
 private:
     decode_fields inst_fields;
-    memory mem;
-    registers b_reg;
 
     inline void lw(){}
     inline void lb(){}
@@ -68,6 +66,9 @@ private:
     inline void mflo(){}
 
 public:
+    memory mem;
+    registers b_reg;
+
     explicit processor();
     virtual ~processor();
 
@@ -75,6 +76,8 @@ public:
     void fetch(); //Throws
     void decode();
     void execute();
+    void step(unsigned int amount);
+    void run();
 };
 
 #endif //T2_SIMULADORMIPS_PROCESSOR_HPP
