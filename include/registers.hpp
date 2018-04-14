@@ -28,6 +28,8 @@ public:
     explicit registers();   //Class default constructor
     virtual ~registers();   //Class default destructor
 
+
+    inline void update_pc(memory_sizes step) {PC += step;}
     void write_at(unsigned int reg_idx, int32_t data);
     int32_t read_from(unsigned int reg_idx);
     void dump_regs(output_format format);

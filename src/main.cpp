@@ -1,25 +1,22 @@
 #include <iostream>
+#include <chrono>
 #include "../include/processor.hpp"
+#include "../include/simulator.hpp"
 
 using namespace std;
+using namespace std::chrono;
 
 int main(int argc, char **argv) {
-    processor MIPS;
+    system_clock::time_point start = system_clock::now();
 
-    MIPS.mem.sw(0,0, 0x080004B0);
-    MIPS.fetch();
-    MIPS.decode();
+    simulator SIM;
 
-    printf("OPCODE: %d\n", MIPS.inst_fields.opcode);
-    printf("RS: %d\n", MIPS.inst_fields.rs);
-    printf("RT: %d\n", MIPS.inst_fields.rt);
-    printf("RD: %d\n", MIPS.inst_fields.rd);
-    printf("SHAMT: %d\n", MIPS.inst_fields.shammt);
-    printf("FUNCT: %d\n", MIPS.inst_fields.funct);
-    printf("K16: %d\n", MIPS.inst_fields.k16);
-    printf("K26: %d\n", MIPS.inst_fields.k26);
+    SIM.read_binary("text.bin", _text);
 
-    MIPS.~processor();
+    SIM.~simulator();
 
+    system_clock::time_point end = system_clock::now();
+    system_clock::duration elapsed = (end - start);
+    printf("Elapsed Time: %d miliseconds\n", elapsed.operator/=(1000000));
     return 0;
 }

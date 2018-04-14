@@ -15,6 +15,10 @@ typedef enum mem_sizes{
     _word = 4, _half_word = 2, _byte = 1
 }memory_sizes;
 
+typedef enum sec {
+    _text, _data
+}memory_section;
+
 typedef enum op { // lembre-se que são considerados apenas os 6 primeiros bits dessas constantes
     EXT=0x00, LW=0x23, LB=0x20, LBU=0x24,
     LH=0x21, LHU=0x25, LUI=0x0F, SW=0x2B,

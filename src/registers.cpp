@@ -72,14 +72,18 @@ void registers::dump_regs(output_format format) {
             break;
     }
 
-    sprintf(output, data_format, PC);
-    printf("PC (Program Counter):\t\t\t\t%s\n", output);
-    sprintf(output, data_format, HI);
-    printf("HI (High-order word of multiply product):\t%s\n", output);
-    sprintf(output, data_format, LO);
-    printf("LO (Lower-order word of multiply product):\t%s\n",output);
-    sprintf(output, data_format, RI);
-    printf("RI (Read Instruction):\t\t\t\t%s\n\n", output);
+    printf("PC (Program Counter):\t\t\t\t");
+    printf(data_format, PC);
+
+    printf("\nHI (High-order word of multiply product):\t");
+    printf(data_format, HI);
+
+    printf("\nLO (Lower-order word of multiply product):\t");
+    printf(data_format, LO);
+
+    printf("\nRI (Read Instruction):\t\t\t\t");
+    printf(data_format, RI);
+    printf("\n\n");
 
     for (i = 0; i < B_REGS_SIZE; i++) {
         sprintf(output, data_format, b_regs[i]);
