@@ -18,6 +18,10 @@
 
 using namespace std::chrono;
 
+/**
+ * @typedef decode_fields
+ * @brief Define todos os possíveis campos de uma instrução MIPS, independente do formato ser R, I ou J.
+ * */
 typedef struct decode{
     uint8_t opcode;
     uint8_t rs;
@@ -34,6 +38,10 @@ class processor{
 private:
     decode_fields inst_fields;
 
+    /**
+     * Todas as funções inline abaixo implementam a instrução equivalente ao seu nome.
+     * Todas elas assumem que a instrução já foi decodificada e, portanto, as variáveis da struct inst_fields já estão definidas.
+     * */
     inline void lw(){
         b_reg.reg[inst_fields.rt] = mem.lw((uint32_t) b_reg.reg[inst_fields.rs], inst_fields.k16);
     }
@@ -216,14 +224,65 @@ public:
     memory mem;
     registers b_reg;
 
+
+    /**
+     * @fn explicit processor();
+     * @brief Função construtora padrão da classe processor. Instancia os atributos mem e b_reg seguindo seus construtores padrões.
+     * */
     explicit processor();
+
+    /**
+     * @fn virtual ~processor();
+     * @brief Função destrutora virtual da classe processor. Utiliza os destrutores padrões nos atributos mem e b_reg.
+     * */
     virtual ~processor();
 
+    /**
+     * @fn @public void load_memory(const char *path, memory_section sec);
+     * @brief Carrega o conteúdo do arquivo apontado por path para dentro da memória
+     * @param path: string (const char*) com o caminho (absoluto ou relativo) para o arquivo
+     * @param sec: parametro do tipo memory_section que define, utilizando a convenção em constants.hpp, em qual área de memória o arquivo será escrito
+     * @throws: Essa função não trata exceções que possam ser lançadas a partir de uma escrita ilegal na memória.
+     * @paragraph: Essa função está realizando a leitura a partir arquivos do MARS exportados como Hexadecimal text. Não consegui entender a disposição do arquivo .bin exportado pelo MARS
+     * e, uma vez que o simulador estava funcionando quando eu escrevia manualmente o mesmo conteúdo mostrado na tela de Assemble do MARS, decidi por fazer a leitura dessa forma.
+     * Peço desculpas por essa modificação e, tendo em vista que esse é o único ponto em desconforme com a especificação do trabalho, espero e peço por não receber uma penalização muito pesada.
+     * */
     void load_memory(const char *path, memory_section sec);
-    void fetch(); //Throws
+
+    /**
+     * @fn @public void fetch();
+     * @brief Realiza um fetch. (Buscar a instrução apontada por PC e escrever em RI)
+     * @throws Essa função pode lançar a exception::out_of_range("Program Counter has joined data memory area. Program killed") quando o PC sair da área .text da memória
+     * */
+    void fetch();
+
+    /**
+     * @fn @public void decode();
+     * @brief Realiza a decodificação da instrução presente no registrador RI
+     * @result A struct inst_fields receberá o resultado da decodificação
+     * */
     void decode();
-    void execute(); //Throws
+
+    /**
+     * @fn @public void execute();
+     * @brief Realiza a execução da instrução já decodificada presente em inst_fields
+     * @throws A função execute pode lançar a exception::logic_error("Could not solve OPCODE (Operation Code)") quando o OPCODE é desconhecido
+     * @throws A função execute pode lançar a exception::runtime_error("Program exited 'with code $' succesfully") quando ocorre uma syscall solicitando a parada do programa
+     * */
+    void execute();
+
+    /**
+     * @fn @public void step(unsigned int amount);
+     * @brief Realiza 'amount' ciclos de execução MIPS - fetch(), decode(), execute()
+     * @note A função trata todas as exceções que possam ser deflagradas
+     * */
     void step(unsigned int amount);
+
+    /**
+     * @fn @public void run();
+     * @brief Realiza ciclos de execução MIPS - fetch(), decode(), execute() até o final do programa
+     * @note A função trata todas as exceções que possam ser deflagradas durante a execução do programa, exibindo no console como o programa se encerrou.
+     * */
     void run();
 };
 

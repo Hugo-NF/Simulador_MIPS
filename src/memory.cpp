@@ -163,7 +163,7 @@ void memory::dump_mem(uint32_t address, uint32_t amount, mem_sizes word_size){
             break;
     }
 
-    while (amount != 0){
+    while (amount > 0){
         try {
             validate_address(address, 0, word_size);
         } catch (exception const &exc) {

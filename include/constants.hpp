@@ -3,23 +3,50 @@
 
 #define CONSOLE_LEN 80
 
+/**
+ * @typedef output_format
+ * @brief Contém as constantes que definem o formato de visualização na tela para as funções dump
+ * */
+
 typedef enum output{
     _hex, _char, _octal, _dec
 }output_format;
+
+/**
+ * @typedef endianness
+ * @brief Contém as constantes que definem a interpretação do conteúdo da memória (little-endian ou big-endian)
+ * */
 
 typedef enum end{
     _little, _big
 }endianness;
 
+/**
+ * @typedef memory_sizes
+ * @brief Contém as constantes que definem o valor em bytes de cada um de seus multíplos, definindo a palavra com 32 bits - 4 bytes
+ * */
+
 typedef enum mem_sizes{
     _word = 4, _half_word = 2, _byte = 1
 }memory_sizes;
+
+/**
+ * @typedef memory_section
+ * @brief Contém as constantes que definem em qual região da memória está-se escrevendo
+ * */
 
 typedef enum sec {
     _text, _data
 }memory_section;
 
-typedef enum op { // lembre-se que são considerados apenas os 6 primeiros bits dessas constantes
+/**
+ * @typedef opcodes
+ * @brief Contém as constantes que definem os OPCODES das operações suportadas pelo simulador
+ * @details Contantes retiradas do documento "MIPS Reference Data"
+ * @warning Note que o OPCODE só é avaliado em relação aos 6 primeiros bits
+ * */
+
+typedef enum op {
     EXT=0x00, LW=0x23, LB=0x20, LBU=0x24,
     LH=0x21, LHU=0x25, LUI=0x0F, SW=0x2B,
     SB=0x28, SH=0x29, BEQ=0x04, BNE=0x05,
@@ -28,11 +55,25 @@ typedef enum op { // lembre-se que são considerados apenas os 6 primeiros bits 
     J=0x02, JAL=0x03
 }opcodes;
 
+/**
+ * @typedef funct
+ * @brief Contém as constantes para o campo FUNCT da instrução do tipo R quando o OPCODE vale EXT = 0x00
+ * @details Contantes retiradas do documento "MIPS Reference Data"
+ * @warning Note que FUNCT só é avaliado em relação aos 6 primeiros bits
+ * */
+
 typedef enum fun {
     ADD=0x20, SUB=0x22, MULT=0x18, DIV=0x1A, AND=0x24,
     OR=0x25, XOR=0x26, NOR=0x27, SLT=0x2A, JR=0x08,
     SLL=0x00, SRL=0x02, SRA=0x03, SYSCALL=0x0C, MFHI=0x10, MFLO=0x12
 }funct;
+
+/**
+ * @typedef syscall
+ * @brief Contém as constantes que definem os serviços prestados pelo OS após uma instrução syscall
+ * @details Essas contantes devem ser fornecidas atráves do registrador $v0
+ * @warning Alguns dos serviços definidos não foram implementados
+ * */
 
 typedef enum sys{
     _prt_int = 1, _prt_float = 2, _prt_double = 3, _prt_string = 4,
