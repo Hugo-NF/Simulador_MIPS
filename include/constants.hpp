@@ -1,7 +1,18 @@
 #ifndef T2_SIMULADORMIPS_TYPES_HPP
 #define T2_SIMULADORMIPS_TYPES_HPP
 
+#define B_REGS_SIZE 32
 #define CONSOLE_LEN 80
+#define MEMORY_AMOUNT 4096
+#define WORD_SIZE   4
+#define BASE_DATA_ADDRESS 0x2000
+#define PC_OUT_OF_BOUNDS  "\nProgram Counter has joined data memory area. Program killed\n"
+#define UNKNOWN_OPCODE  "\nCould not solve OPCODE (Operation Code)\n"
+#define UNKNOWN_FILE    "\nCould not find the specified file\n"
+#define UNKNOWN_SYSCALL "\nUnknown system call\nPlease enter an valid code in $v0\n"
+#define SYSCALL_EXIT    "\nProgram exited succesfully\n"
+#define SYSCALL_EXIT_V  "\nProgram exited with code %d\n"
+#define INVALID_ACCESS_ERROR_MSG   "Invalid Memory Access"
 
 /**
  * @typedef output_format

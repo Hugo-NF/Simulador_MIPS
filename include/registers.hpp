@@ -8,8 +8,6 @@
 #include <vector>
 #include "constants.hpp"
 
-#define B_REGS_SIZE 32
-
 using namespace std;
 
 class registers{

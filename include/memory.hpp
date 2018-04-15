@@ -8,10 +8,6 @@
 #include <exception>
 #include "constants.hpp"
 
-#define MEMORY_AMOUNT 4096
-#define WORD_SIZE   4
-#define INVALID_ACCESS_ERROR_MSG   "Invalid Memory Access"
-
 using namespace std;
 
 typedef struct memory_cell {

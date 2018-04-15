@@ -8,14 +8,6 @@
 #include "memory.hpp"
 #include "constants.hpp"
 
-#define BASE_DATA_ADDRESS 0x2000
-#define PC_OUT_OF_BOUNDS  "\nProgram Counter has joined data memory area. Program killed\n"
-#define UNKNOWN_OPCODE  "\nCould not solve OPCODE (Operation Code)\n"
-#define UNKNOWN_FILE    "\nCould not find the specified file\n"
-#define UNKNOWN_SYSCALL "\nUnknown system call\nPlease enter an valid code in $v0\n"
-#define SYSCALL_EXIT    "\nProgram exited succesfully\n"
-#define SYSCALL_EXIT_V  "\nProgram exited with code %d\n"
-
 using namespace std::chrono;
 
 /**
