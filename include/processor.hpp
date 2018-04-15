@@ -9,12 +9,12 @@
 #include "constants.hpp"
 
 #define BASE_DATA_ADDRESS 0x2000
-#define PC_OUT_OF_BOUNDS  "Program Counter has joined data memory area\n"
-#define UNKNOWN_OPCODE  "Could not solve OPCODE (Operation Code)\n"
-#define UNKNOWN_FILE    "Could not find the specified file\n"
-#define UNKNOWN_SYSCALL "Unknown system call\nPlease enter an valid code in $v0\n"
-#define SYSCALL_EXIT    "Program exited succesfully\n"
-#define SYSCALL_EXIT_V(x)  "Program exited succesfully with code ##x\n"
+#define PC_OUT_OF_BOUNDS  "\nProgram Counter has joined data memory area. Program killed\n"
+#define UNKNOWN_OPCODE  "\nCould not solve OPCODE (Operation Code)\n"
+#define UNKNOWN_FILE    "\nCould not find the specified file\n"
+#define UNKNOWN_SYSCALL "\nUnknown system call\nPlease enter an valid code in $v0\n"
+#define SYSCALL_EXIT    "\nProgram exited succesfully\n"
+#define SYSCALL_EXIT_V  "\nProgram exited with code %d\n"
 
 using namespace std::chrono;
 
@@ -199,7 +199,8 @@ private:
             case _fexit:
                 throw runtime_error(SYSCALL_EXIT);
             case _exit_v:
-                throw runtime_error(SYSCALL_EXIT_V(itoa(b_reg.reg[4])));
+                printf(SYSCALL_EXIT_V, b_reg.reg[4]);
+                throw runtime_error(SYSCALL_EXIT);
             default:
                 printf(UNKNOWN_SYSCALL);
         }

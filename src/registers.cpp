@@ -5,6 +5,7 @@ registers::registers() {
     this->HI = 0x00000000;
     this->LO = 0x00000000;
     this->RI = 0x00000000;
+    this->reg[0] = 0x00000000;
     this->regs_description[0] = "$zero (Constant 0):\t\t\t\t\t\t";
     this->regs_description[1] = "$at (Reserved for assembler):\t\t\t\t\t";
     this->regs_description[2] = "$v0 (Expression evaluation and results of a function 1):\t";

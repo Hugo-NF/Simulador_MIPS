@@ -11,24 +11,19 @@ processor::~processor() {
 }
 
 void processor::load_memory(const char *path, memory_section sec) {
-    fstream file_obj(path, ios::in|ios::binary|ios::ate);
-    streampos size;
-    char *mem_block;
+    fstream file_obj;
+    char mem_block[11];
+    int16_t i = 0;
     unsigned int start = sec == _text? 0: BASE_DATA_ADDRESS;
-    unsigned int end = sec == _text? BASE_DATA_ADDRESS:(WORD_SIZE*MEMORY_AMOUNT);
 
+    file_obj.open(path, ios::in);
     if(file_obj.is_open()){
-        size = file_obj.tellg();
-        mem_block = new char[size];
-        file_obj.seekg(0, ios::beg);
-        file_obj.read(mem_block, size);
-        file_obj.close();
-
-        for(uint32_t i = start, j = 0; i < end && j < size; i++){
-            this->mem.sb(i,0, (uint8_t)mem_block[j]);
+        while(!file_obj.eof()){
+            file_obj.getline(mem_block, 10);
+            this->mem.sw(start, i, (uint32_t)strtoul(mem_block, nullptr, 16));
+            i += _word;
         }
-
-        delete[] mem_block;
+        file_obj.close();
     }
     else
         printf(UNKNOWN_FILE);
@@ -109,6 +104,7 @@ void processor::execute() {
                 default:
                     throw logic_error(UNKNOWN_OPCODE);
             }
+            break;
         case LW:
             this->lw();
             break;
