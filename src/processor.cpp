@@ -10,7 +10,7 @@ processor::~processor() {
     this->b_reg.~registers();
 }
 
-void processor::load_memory(const char *path, memory_section sec) {
+void processor::load_memory_text(const char *path, memory_section sec, unsigned int base) {
     fstream file_obj;
     char mem_block[11];
     int16_t i = 0;
@@ -20,10 +20,29 @@ void processor::load_memory(const char *path, memory_section sec) {
     if(file_obj.is_open()){
         while(!file_obj.eof()){
             file_obj.getline(mem_block, 10);
-            this->mem.sw(start, i, (uint32_t)strtoul(mem_block, nullptr, 16));
+            this->mem.sw(start, i, (uint32_t)strtoul(mem_block, nullptr, base));
             i += _word;
         }
         file_obj.close();
+    }
+    else
+        printf(UNKNOWN_FILE);
+}
+
+void processor::load_memory_binary(const char *path, memory_section sec) {
+    fstream file_obj;
+    uint32_t current_word;
+    int16_t i = 0;
+    unsigned int start = sec == _text? 0: BASE_DATA_ADDRESS;
+
+    file_obj.open(path, ios::in|ios::binary);
+    if(file_obj.is_open()){
+        while(!file_obj.eof()){
+            file_obj.read((char *)&current_word, sizeof(current_word));
+            this->mem.sw(start, i, current_word);
+            i+=_word;
+        }
+        this->mem.sw(start, i-_word, 0x00000000);
     }
     else
         printf(UNKNOWN_FILE);
@@ -199,4 +218,5 @@ void processor::run(){
         }
     }
 }
+
 

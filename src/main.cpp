@@ -11,8 +11,13 @@ int main(int argc, char **argv) {
 
     //printf("%ld\n", strtol("20082000", nullptr, 16));
     processor MIPS;
-    MIPS.load_memory("../test/text", _text);
-    MIPS.load_memory("../test/data", _data);
+
+
+
+    //MIPS.load_memory_text("../test/text", _text, 16);
+    //MIPS.load_memory_text("../test/data", _data, 16);
+    MIPS.load_memory_binary("../test/text1.bin", _text);
+    MIPS.load_memory_binary("../test/data1.bin", _data);
 
    /* MIPS.mem.sw(0, 0, 0x20082000);
     MIPS.mem.sw(4, 0, 0x8D080000);
@@ -26,7 +31,7 @@ int main(int argc, char **argv) {
     MIPS.mem.sw(36, 0, 0x2004000B);
     MIPS.mem.sw(40, 0, 0x0000000C);
     MIPS.mem.sw(0x2000,0,0x00000021);*/
-    MIPS.mem.dump_mem(0,12,_word);
+    MIPS.mem.dump_mem(0, 10,_word);
     MIPS.run();
 
     system_clock::time_point end = system_clock::now();

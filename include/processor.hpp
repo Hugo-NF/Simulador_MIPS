@@ -216,7 +216,6 @@ public:
     memory mem;
     registers b_reg;
 
-
     /**
      * @fn explicit processor();
      * @brief Função construtora padrão da classe processor. Instancia os atributos mem e b_reg seguindo seus construtores padrões.
@@ -230,16 +229,21 @@ public:
     virtual ~processor();
 
     /**
-     * @fn @public void load_memory(const char *path, memory_section sec);
-     * @brief Carrega o conteúdo do arquivo apontado por path para dentro da memória
-     * @param path: string (const char*) com o caminho (absoluto ou relativo) para o arquivo
-     * @param sec: parametro do tipo memory_section que define, utilizando a convenção em constants.hpp, em qual área de memória o arquivo será escrito
-     * @throws: Essa função não trata exceções que possam ser lançadas a partir de uma escrita ilegal na memória.
-     * @paragraph: Essa função está realizando a leitura a partir arquivos do MARS exportados como Hexadecimal text. Não consegui entender a disposição do arquivo .bin exportado pelo MARS
-     * e, uma vez que o simulador estava funcionando quando eu escrevia manualmente o mesmo conteúdo mostrado na tela de Assemble do MARS, decidi por fazer a leitura dessa forma.
-     * Peço desculpas por essa modificação e, tendo em vista que esse é o único ponto em desconforme com a especificação do trabalho, espero e peço por não receber uma penalização muito pesada.
+     * @fn void load_memory_text(const char *path, memory_section sec, unsigned int base);
+     * @brief Carrega um arquivo de texto, indicado por path, para a memória
+     * @param path: string (const char *) indicando o arquivo a ser lido
+     * @param sec: constante do tipo memory_section que indica em qual seção de memória desejamos escrever o arquivo (_text ou _data)
+     * @param base: indica a base numérica na qual o arquivo texto está escrito
      * */
-    void load_memory(const char *path, memory_section sec);
+    void load_memory_text(const char *path, memory_section sec, unsigned int base);
+
+    /**
+     * @fn void load_memory_binary(const char *path, memory_section sec);
+     * @brief Carrega um arquivo binário, indicado por path, para a memória
+     * @param path: string (const char *) indicando o arquivo a ser lido
+     * @param sec: constante do tipo memory_section que indica em qual seção de memória desejamos escrever o arquivo (_text ou _data)
+     * */
+    void load_memory_binary(const char *path, memory_section sec);
 
     /**
      * @fn @public void fetch();

@@ -38,7 +38,7 @@ public:
      * @brief Função inline que move o PC para o endereço da branch apontada por 'immediate'.
      * @param immediate: campo immediate16 (k16) do formato de instrução I.
      * */
-    inline void branch_addr(int16_t immediate){ PC += (_word + (immediate<<2));}
+    inline void branch_addr(int16_t immediate){ PC += (immediate<<2);}
 
     /**
      * @fn @public inline void jump_addr(uint32_t immediate);
