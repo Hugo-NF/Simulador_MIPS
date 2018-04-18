@@ -80,6 +80,9 @@ private:
     inline void addi(){
         b_reg.reg[inst_fields.rt] = b_reg.reg[inst_fields.rs] + inst_fields.k16;
     }
+    inline void addiu(){
+        b_reg.reg[inst_fields.rt] = b_reg.reg[inst_fields.rs] + inst_fields.k16;
+    }
     inline void slti(){
         b_reg.reg[inst_fields.rd] = b_reg.reg[inst_fields.rs] < inst_fields.k16? 1 : 0;
     }

@@ -166,6 +166,9 @@ void processor::execute() {
         case ADDI:
             this->addi();
             break;
+        case ADDIU:
+            this->addiu();
+            break;
         case SLTI:
             this->slti();
             break;
