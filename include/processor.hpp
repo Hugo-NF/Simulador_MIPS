@@ -50,7 +50,7 @@ private:
         b_reg.reg[inst_fields.rt] = mem.lhu((uint32_t) b_reg.reg[inst_fields.rs], inst_fields.k16);
     }
     inline void lui(){
-        b_reg.reg[inst_fields.rt] = inst_fields.k16 << 16;
+        b_reg.reg[inst_fields.rt] = (inst_fields.k16 << 16) && 0xFFFF00000;
     }
     inline void sw(){
         mem.sw((uint32_t) b_reg.reg[inst_fields.rs], inst_fields.k16, (uint32_t) b_reg.reg[inst_fields.rt]);
@@ -100,7 +100,6 @@ private:
         b_reg.jump_addr(inst_fields.k26);
     }
     inline void jal(){
-        b_reg.update_pc(_word);
         b_reg.reg[31] = b_reg.PC;
         b_reg.jump_addr(inst_fields.k26);
     }
@@ -131,7 +130,6 @@ private:
     }
     inline void nor(){
         b_reg.reg[inst_fields.rd] = ~(b_reg.reg[inst_fields.rs] | b_reg.reg[inst_fields.rt]);
-
     }
     inline void slt(){
         b_reg.reg[inst_fields.rd] = b_reg.reg[inst_fields.rs] < b_reg.reg[inst_fields.rt]? 1 : 0;
@@ -143,7 +141,7 @@ private:
         b_reg.reg[inst_fields.rd] = b_reg.reg[inst_fields.rt] << inst_fields.shammt;
     }
     inline void srl(){
-        b_reg.reg[inst_fields.rd] = b_reg.reg[inst_fields.rt] >> inst_fields.shammt;
+        b_reg.reg[inst_fields.rd] = (uint32_t) b_reg.reg[inst_fields.rt] >> inst_fields.shammt;
     }
     inline void sra(){
         b_reg.reg[inst_fields.rd] = b_reg.reg[inst_fields.rt] >> inst_fields.shammt;
