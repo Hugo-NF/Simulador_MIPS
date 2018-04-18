@@ -10,13 +10,21 @@ int main(int argc, char **argv) {
 
     if(argc == 3) {
         processor MIPS;
-        MIPS.load_memory_binary(argv[0], _text);
-        MIPS.load_memory_binary(argv[1], _data);
+
+        try{
+            MIPS.load_memory_binary(argv[1], _text);
+            MIPS.load_memory_binary(argv[2], _data);
+        }
+        catch (const exception &exc){
+            printf("Your program/data is larger than memory size\n");
+        }
 
         MIPS.run();
 
         MIPS.b_reg.dump_regs(_hex);
-        MIPS.mem.dump_mem(0, 30, _word);
+        MIPS.mem.dump_mem(0, 18, _word);
+        MIPS.mem.set_data_output(_char);
+        MIPS.mem.dump_mem(BASE_DATA_ADDRESS, 20, _word);
     }
     system_clock::time_point end = system_clock::now();
     system_clock::duration elapsed = (end - start);

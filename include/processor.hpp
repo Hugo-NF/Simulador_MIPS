@@ -175,24 +175,29 @@ private:
                 break;
             }
             case _prt_string: {
-                int16_t i = 0;
+                int16_t i = _word-1;
                 uint32_t addr = (uint32_t) b_reg.reg[4];
-                int32_t curr_char = mem.lb(addr, i);
+                uint32_t curr_char = mem.lbu(addr, 3);
                 while (curr_char != 0) {
                     printf("%c", curr_char);
-                    i++;
-                    curr_char = mem.lb(addr, i);
+                    i--;
+                    curr_char = mem.lbu(addr, i);
+                    if(i%_word == 0)
+                        i+=8;
                 }
                 break;
             }
             case _rd_string: {
-                int16_t i = 0;
+                int16_t i = 3, j = 0;
                 uint32_t addr = (uint32_t) b_reg.reg[4];
                 char buffer[b_reg.reg[5]+1];
                 gets(buffer);
-                while(buffer[i] != 0){
-                    mem.sb(addr, i, (uint8_t)buffer[i]);
-                    i++;
+                while(buffer[j] != 0){
+                    mem.sb(addr, i, (uint8_t)buffer[j]);
+                    j++;
+                    i--;
+                    if(i%_word == 0)
+                        i+=8;
                 }
                 mem.sb(addr, i, 0); //Write null terminator
                 break;
