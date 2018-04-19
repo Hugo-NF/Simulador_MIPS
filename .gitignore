@@ -5,6 +5,9 @@
 /.idea/**
 /cmake-build-debug/**
 
+#Others
+*.pdf
+
 # Compiled Object files
 *.slo
 *.lo
