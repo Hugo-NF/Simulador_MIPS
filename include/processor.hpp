@@ -10,21 +10,6 @@
 
 using namespace std::chrono;
 
-/**
- * @typedef decode_fields
- * @brief Define todos os possíveis campos de uma instrução MIPS, independente do formato ser R, I ou J.
- * */
-typedef struct decode{
-    uint8_t opcode;
-    uint8_t rs;
-    uint8_t rt;
-    uint8_t rd;
-    uint8_t shammt;
-    uint8_t funct;
-    int16_t k16;
-    uint32_t k26;
-}decode_fields;
-
 class processor{
 
 private:

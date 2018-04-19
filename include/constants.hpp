@@ -80,7 +80,7 @@ typedef enum fun {
 }funct;
 
 /**
- * @typedef syscall
+ * @typedef syscalls
  * @brief Contém as constantes que definem os serviços prestados pelo OS após uma instrução syscall
  * @details Essas contantes devem ser fornecidas atráves do registrador $v0
  * @warning Alguns dos serviços definidos não foram implementados
@@ -93,5 +93,20 @@ typedef enum sys{
     _file_read = 14, _file_write = 15, _cls_file = 16, _exit_v = 17,
     _ssleep = 32, _prt_int_hex = 34, _prt_u_int = 36
 }syscalls;
+
+/**
+ * @typedef decode_fields
+ * @brief Define todos os possíveis campos de uma instrução MIPS, independente do formato ser R, I ou J.
+ * */
+typedef struct decode{
+    uint8_t opcode;
+    uint8_t rs;
+    uint8_t rt;
+    uint8_t rd;
+    uint8_t shammt;
+    uint8_t funct;
+    int16_t k16;
+    uint32_t k26;
+}decode_fields;
 
 #endif //T2_SIMULADORMIPS_TYPES_HPP
