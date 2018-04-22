@@ -29,6 +29,6 @@ int main(int argc, char **argv) {
     system_clock::time_point end = system_clock::now();
     system_clock::duration elapsed = (end - start);
     printf("Elapsed Time: %d miliseconds\n", elapsed.operator/=(1000000));
-
+    system("PAUSE");
     return 0;
 }
